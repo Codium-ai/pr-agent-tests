@@ -115,14 +115,14 @@ See the [Tools Guide](./docs/TOOLS_GUIDE.md) for detailed description of the dif
 |       | ⮑ Extended                             |   :white_check_mark:    |   :white_check_mark:    |        :white_check_mark:   |   :white_check_mark:    |          | :white_check_mark:    |
 |       | Reflect and Review                          |   :white_check_mark:    |   :white_check_mark:    |   :white_check_mark:        |          |   :white_check_mark:    |    :white_check_mark:    |
 |       | Update CHANGELOG.md                         |   :white_check_mark:    |   :white_check_mark:    |   :white_check_mark:        |   :white_check_mark:    |          |       |
-|       | Find similar issue                          |   :white_check_mark:    |                         |                             |          |          |       |
+|       | Find similar issue                          |   :white_check_mark:    |                         |   :white_check_mark:                          |          |          |       |
 |       | Add Documentation                           |   :white_check_mark:    |   :white_check_mark:    |   :white_check_mark:        |   :white_check_mark:    |          |    :white_check_mark:    |
 |       | Generate Labels                           |   :white_check_mark:    |   :white_check_mark:    |         |     |          |      |
 |       |                                             |        |        |      |      |      |
 | USAGE | CLI                                         |   :white_check_mark:    |   :white_check_mark:    |   :white_check_mark:       |   :white_check_mark:    |   :white_check_mark:    |
 |       | App / webhook                               |   :white_check_mark:    |   :white_check_mark:    |           |          |          |
 |       | Tagging bot                                 |   :white_check_mark:    |        |           |          |          |
-|       | Actions                                     |   :white_check_mark:    |        |           |          |          |
+|       | Actions                                     |   :white_check_mark:    |        | :white_check_mark: |          |          |
 |       | Web server                                  |       |        |           |          |          |  :white_check_mark:   |
 |       |                                             |        |        |      |      |      |
 | CORE  | PR compression                              |   :white_check_mark:    |   :white_check_mark:    |   :white_check_mark:       | :white_check_mark: |   :white_check_mark:       | :white_check_mark:       |

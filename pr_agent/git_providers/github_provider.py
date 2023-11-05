@@ -253,7 +253,7 @@ class GithubProvider(GitProvider):
                 self.github_user_id = self.github_client.get_user().raw_data['login']
             except Exception as e:
                 self.github_user_id = ""
-                # logging.exception(f"Failed to get user id, error: {e}")
+                # get_logger().exception(f"Failed to get user id, error: {e}")
         return self.github_user_id
 
     def get_notifications(self, since: datetime):
@@ -350,7 +350,7 @@ class GithubProvider(GitProvider):
             issue_number = int(path_parts[3])
         except ValueError as e:
             raise ValueError("Unable to convert issue number to integer") from e
-
+        
         return repo_name, issue_number
 
     def _get_github_client(self):
@@ -468,3 +468,71 @@ class GithubProvider(GitProvider):
             return pr_id
         except:
             return ""
+        
+    def get_repo_issues(self, repo_obj):
+        return list(repo_obj.get_issues(state='all'))
+    
+    def get_issue_url(self, issue):
+        return issue.html_url
+    
+    def parse_issue_url_and_create_comment(self, similar_issues_str, issue_url, original_issue_number):
+        repo_name, original_issue_number = self._parse_issue_url(issue_url)
+        try:
+            issue = self.repo_obj.get_issue(original_issue_number)
+            issue.create_comment(similar_issues_str)
+        except Exception as e:
+            get_logger().exception(f"Failed to create issue comment, error: {e}")
+
+    def get_issue_body(self, issue):
+        return issue.body
+        
+    def get_issue_number(self, issue):
+        return issue.number
+    
+    def parse_issue_url_and_get_comments(self, issue):
+        repo_name, original_issue_number = self._parse_issue_url(issue)
+        issue = self.repo_obj.get_issue(original_issue_number)
+        return list(issue.get_comments())
+    
+    def get_issue_body(self, issue):
+        return issue.body
+    
+    def get_username(self, issue, issue_url):
+        return issue.user.login
+    
+    def get_issue_created_at(self, issue):
+        return str(issue.created_at)
+    
+    def get_issue_comment_body(self, comment):
+        return comment.body
+    
+    def get_issue(self, issue_url):
+        repo_name, original_issue_number = self._parse_issue_url(issue_url)
+        issue = self.repo_obj.get_issue(original_issue_number)
+        return issue, original_issue_number
+    
+    def parse_issue_url_and_get_repo_obj(self, issue_url):
+        repo_name, original_issue_number = self._parse_issue_url(issue_url)
+        return self.github_client.get_repo(repo_name)
+    
+    def get_repo_name_for_indexing(self, repo_obj):
+        return repo_obj.full_name.lower().replace('/', '-').replace('_/', '-')
+    
+    def check_if_issue_pull_request(self, issue):
+        if issue.pull_request:
+            return True
+        return False
+    
+    def get_issue_numbers_from_list(self, r):
+        return int(r.split('.')[0].split('_')[-1])
+    
+    def parse_issue_url_and_get_similar_issues(self, issue_url, issue_number_similar):
+        repo_name, original_issue_number = self._parse_issue_url(issue_url)
+        issue = self.github_client.get_repo(repo_name).get_issue(issue_number_similar)
+        return issue
+
+    def parse_issue_url_and_get_main_issue(self, issue_url):
+        repo_name, original_issue_number = self._parse_issue_url(issue_url)
+        issue = self.github_client.get_repo(repo_name).get_issue(original_issue_number)
+        return issue
+
