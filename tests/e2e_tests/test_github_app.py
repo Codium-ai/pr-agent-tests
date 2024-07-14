@@ -46,17 +46,16 @@ def test_e2e_run_github_app():
     (2) wait for 5 minutes until the PR is processed by the GitHub app
     (3) check that the relevant tools have been executed
     """
-    try:
-        # (1) open a PR in a repo '
-        repo_url = 'Codium-ai/pr-agent-tests'
-        get_settings().config.git_provider = "github"
-        git_provider = get_git_provider()()
-        github_client = git_provider.github_client
-        repo = github_client.get_repo(repo_url)
+    base_branch = "main"  # or any base branch you want
+    new_branch = f"github_app_e2e_test-{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
+    repo_url = 'Codium-ai/pr-agent-tests'
+    get_settings().config.git_provider = "github"
+    git_provider = get_git_provider()()
+    github_client = git_provider.github_client
+    repo = github_client.get_repo(repo_url)
 
+    try:
         # Create a new branch from the base branch
-        base_branch = "main"  # or any base branch you want
-        new_branch = f"github_app_e2e_test-{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
         source = repo.get_branch(base_branch)
         logger.info(f"Creating a new branch {new_branch} from {base_branch}")
         repo.create_git_ref(ref=f"refs/heads/{new_branch}", sha=source.commit.sha)
@@ -114,9 +113,15 @@ def test_e2e_run_github_app():
         else:
             assert False, f"After {NUM_MINUTES} minutes, the PR did not get all the tool results"
 
+        # delete the branch
+        logger.info(f"Deleting the branch {new_branch}")
+        repo.get_git_ref(f"heads/{new_branch}").delete()
         logger.info(f"Succeeded in running e2e test for GitHub app on the PR {pr.html_url}")
     except Exception as e:
         logger.error(f"Failed to run e2e test for GitHub app: {e}")
+        # delete the branch
+        logger.info(f"Deleting the branch {new_branch}")
+        repo.get_git_ref(f"heads/{new_branch}").delete()
         assert False
 
 
