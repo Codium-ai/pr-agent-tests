@@ -37,6 +37,6 @@ jobs:
           target: test
 
       - id: test
-        name: Test dev docker
-        run: | # run 'tests/e2e_tests' folder
+        name: E2E github_app test
+        run: |
           docker run --rm codiumai/pr-agent:test pytest -v tests/e2e_tests

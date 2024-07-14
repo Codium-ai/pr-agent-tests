@@ -49,7 +49,8 @@ def test_e2e_run_github_app():
     try:
         # (1) open a PR in a repo '
         repo_url = 'Codium-ai/pr-agent-tests'
-        git_provider = get_git_provider("github")()
+        get_settings().config.git_provider = "github"
+        git_provider = get_git_provider()()
         github_client = git_provider.github_client
         repo = github_client.get_repo(repo_url)
 
@@ -116,7 +117,7 @@ def test_e2e_run_github_app():
         logger.info(f"Succeeded in running e2e test for GitHub app on the PR {pr.html_url}")
     except Exception as e:
         logger.error(f"Failed to run e2e test for GitHub app: {e}")
-        raise e
+        assert False
 
 
 if __name__ == '__main__':
