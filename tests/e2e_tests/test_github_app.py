@@ -86,9 +86,9 @@ def test_e2e_run_github_app():
             base=base_branch
         )
 
-        # delete the branch
-        logger.info(f"Deleting the branch {new_branch}")
-        repo.get_git_ref(f"heads/{new_branch}").delete()
+        # # delete the branch
+        # logger.info(f"Deleting the branch {new_branch}")
+        # repo.get_git_ref(f"heads/{new_branch}").delete()
 
         # check the PR every minute, up to a limit of 5 minutes, to see if we got all the tool results
         PR_HEADER_START_WITH = '### **User description**\nupdate cli_pip.py\n\n\n___\n\n### **PR Type**'

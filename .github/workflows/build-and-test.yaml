@@ -35,10 +35,7 @@ jobs:
 
       - id: test
         name: Test dev docker
-        env:
-          OPENAI_API.API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker run -e GITHUB_TOKEN -e OPENAI_API.API_KEY --rm codiumai/pr-agent:test pytest -v tests/unittest
+          docker run --rm codiumai/pr-agent:test pytest -v tests/unittest
         
           
