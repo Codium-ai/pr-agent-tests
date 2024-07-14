@@ -22,7 +22,7 @@ jobs:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: python tests/e2e_tests/github_app.py
+          args: python tests/e2e_tests/test_github_app.py
 
 
 
