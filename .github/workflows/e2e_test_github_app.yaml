@@ -39,4 +39,4 @@ jobs:
       - id: test
         name: E2E github_app test
         run: |
-           docker run -e GITHUB.USER_TOKEN=${{ secrets.GITHUB_TOKEN }} -e OPENAI.KEY=${{ secrets.OPENAI_API_KEY }} --rm codiumai/pr-agent:test pytest -v tests/e2e_tests/
+           docker run -e GITHUB.USER_TOKEN=${{ secrets.TOKEN_GITHUB }} -e OPENAI.KEY=${{ secrets.OPENAI_API_KEY }} --rm codiumai/pr-agent:test pytest -v tests/e2e_tests/
