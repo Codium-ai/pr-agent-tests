@@ -37,7 +37,7 @@ jobs:
           target: test
 
       - id: test1
-        name: E2E test
+        name: E2E test github app
         run: |
            docker run -e GITHUB.USER_TOKEN=${{ secrets.TOKEN_GITHUB }} --rm codiumai/pr-agent:test pytest -v tests/e2e_tests/test_github_app.py
 
