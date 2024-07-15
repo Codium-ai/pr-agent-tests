@@ -1,5 +1,5 @@
 
-name: PR-Agent E2E github_app test
+name: PR-Agent E2E tests
 
 on:
   workflow_dispatch:
@@ -36,11 +36,11 @@ jobs:
           cache-to: type=gha,mode=max,scope=dev
           target: test
 
-#      - id: test1
-#        name: E2E test
-#        run: |
-#           docker run -e GITHUB.USER_TOKEN=${{ secrets.TOKEN_GITHUB }} --rm codiumai/pr-agent:test pytest -v tests/e2e_tests/test_github_app.py
-#
+      - id: test1
+        name: E2E test
+        run: |
+           docker run -e GITHUB.USER_TOKEN=${{ secrets.TOKEN_GITHUB }} --rm codiumai/pr-agent:test pytest -v tests/e2e_tests/test_github_app.py
+
 
       - id: test2
         name: E2E gitlab webhook
