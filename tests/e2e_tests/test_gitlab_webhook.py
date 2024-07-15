@@ -59,13 +59,15 @@ def test_e2e_run_github_app():
             mr = project.mergerequests.get(mr.iid)
             mr_header_body = mr.description
             comments = mr.notes.list()[::-1]
-            if len(comments) == 3: # "changed the description" is received as the first comment
+            # clean all system comments
+            comments = [comment for comment in comments if comment.system is False]
+            if len(comments) == 2: # "changed the description" is received as the first comment
                 comments_body = [comment.body for comment in comments]
-                if 'Work in progress' in comments_body[1] or 'Work in progress' in comments_body[2]:
+                if 'Work in progress' in comments_body[1]:
                     continue
                 assert mr_header_body.startswith(PR_HEADER_START_WITH), "DESCRIBE feedback is invalid"
-                assert comments_body[1].startswith(REVIEW_START_WITH), "REVIEW feedback is invalid"
-                assert re.match(IMPROVE_START_WITH_REGEX_PATTERN, comments_body[2]), "IMPROVE feedback is invalid"
+                assert comments_body[0].startswith(REVIEW_START_WITH), "REVIEW feedback is invalid"
+                assert re.match(IMPROVE_START_WITH_REGEX_PATTERN, comments_body[1]), "IMPROVE feedback is invalid"
                 break
             else:
                 logger.info(f"Waiting for the MR to get all the tool results. {i + 1} minute(s) passed")
