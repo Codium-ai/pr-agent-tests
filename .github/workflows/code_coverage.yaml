@@ -38,6 +38,8 @@ jobs:
         name: Test dev docker
         run: |
           docker run --rm codiumai/pr-agent:test pytest tests/unittest --cov=pr_agent
+          docker run --rm codiumai/pr-agent:test ls -l ./coverage.xml
+
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4.0.1
