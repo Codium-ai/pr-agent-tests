@@ -37,8 +37,8 @@ jobs:
       - id: code_cov
         name: Test dev docker
         run: |
-          docker run --rm codiumai/pr-agent:test pytest tests/unittest --cov=pr_agent
-          docker run --rm codiumai/pr-agent:test ls -l
+          docker run --name test_container codiumai/pr-agent:test pytest tests/unittest --cov=pr_agent
+          docker cp test_container:/pr_agent/coverage.xml coverage.xml
 
 
       - name: Upload coverage to Codecov
