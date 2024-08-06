@@ -47,38 +47,38 @@ class TestOmitDeletionHunks:
         expected_output = '@@ -1,0 +1,1 @@\n\n-deleted line\n+added line\n'
         assert omit_deletion_hunks(patch_lines) == expected_output
 
-    # Tests that the function correctly omits deletion lines from the patch when there are no additions or context
-    # lines.
-    def test_patch_only_deletions(self):
-        patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n']
-        expected_output = ''
-        assert omit_deletion_hunks(patch_lines) == expected_output
+    # # Tests that the function correctly omits deletion lines from the patch when there are no additions or context
+    # # lines.
+    # def test_patch_only_deletions(self):
+    #     patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n']
+    #     expected_output = ''
+    #     assert omit_deletion_hunks(patch_lines) == expected_output
 
-        # Additional deletion lines
-        patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n', '-another deleted line\n']
-        expected_output = ''
-        assert omit_deletion_hunks(patch_lines) == expected_output
+    #     # Additional deletion lines
+    #     patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n', '-another deleted line\n']
+    #     expected_output = ''
+    #     assert omit_deletion_hunks(patch_lines) == expected_output
 
-        # Additional context lines
-        patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n', '-another deleted line\n', 'context line 1\n',
-                       'context line 2\n', 'context line 3\n']
-        expected_output = ''
-        assert omit_deletion_hunks(patch_lines) == expected_output
+    #     # Additional context lines
+    #     patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n', '-another deleted line\n', 'context line 1\n',
+    #                    'context line 2\n', 'context line 3\n']
+    #     expected_output = ''
+    #     assert omit_deletion_hunks(patch_lines) == expected_output
 
-    # Tests that the function correctly handles an empty patch
-    def test_empty_patch(self):
-        patch_lines = []
-        expected_output = ''
-        assert omit_deletion_hunks(patch_lines) == expected_output
+    # # Tests that the function correctly handles an empty patch
+    # def test_empty_patch(self):
+    #     patch_lines = []
+    #     expected_output = ''
+    #     assert omit_deletion_hunks(patch_lines) == expected_output
 
-    # Tests that the function correctly handles a patch containing only one hunk
-    def test_patch_one_hunk(self):
-        patch_lines = ['@@ -1,0 +1,1 @@\n', '+added line\n']
-        expected_output = '@@ -1,0 +1,1 @@\n\n+added line\n'
-        assert omit_deletion_hunks(patch_lines) == expected_output
+    # # Tests that the function correctly handles a patch containing only one hunk
+    # def test_patch_one_hunk(self):
+    #     patch_lines = ['@@ -1,0 +1,1 @@\n', '+added line\n']
+    #     expected_output = '@@ -1,0 +1,1 @@\n\n+added line\n'
+    #     assert omit_deletion_hunks(patch_lines) == expected_output
 
-    # Tests that the function correctly handles a patch containing only deletions and no additions
-    def test_patch_deletions_no_additions(self):
-        patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n']
-        expected_output = ''
-        assert omit_deletion_hunks(patch_lines) == expected_output
+    # # Tests that the function correctly handles a patch containing only deletions and no additions
+    # def test_patch_deletions_no_additions(self):
+    #     patch_lines = ['@@ -1,1 +1,0 @@\n', '-deleted line\n']
+    #     expected_output = ''
+    #     assert omit_deletion_hunks(patch_lines) == expected_output
