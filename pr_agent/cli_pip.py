@@ -6,9 +6,9 @@ def main():
     # Fill in the following values
     provider = "github"  # GitHub provider
     user_token = "..."  # GitHub user token
-    openai_key = "..."  # OpenAI key
+    openai_key = "ghs_afsdfasdfsdf"  # Example OpenAI key
     pr_url = "..."  # PR URL, for example 'https://github.com/Codium-ai/pr-agent/pull/809'
-    command = "/review"  # Command to run (e.g. '/review', '/describe', '/ask="What is the purpose of this PR?"')
+    command = "/improve"  # Command to run (e.g. '/review', '/describe', 'improve', '/ask="What is the purpose of this PR?"')
 
     # Setting the configurations
     get_settings().set("CONFIG.git_provider", provider)
@@ -16,8 +16,9 @@ def main():
     get_settings().set("github.user_token", user_token)
 
     # Run the command. Feedback will appear in GitHub PR comments
-    cli.run_command(pr_url, command)
+    output = cli.run_command(pr_url, command)
 
+    print(output)
 
 if __name__ == '__main__':
     main()
